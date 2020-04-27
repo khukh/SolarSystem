@@ -3,12 +3,27 @@
 
 #include "pch.h"
 #include <iostream>
+//#include "Constants.h"
+#include "status.h"
 
 int main()
 {
+	Vect <7> initSun = { 0,0,0,0,0,0,0 };
+	Body Sun(MU_SUN, initSun);
+	
+	Body Apophis( MU_APOPHIS, initApophis, &Sun );
+	Vect <3> pos = Sun.getPosition(24 * 3600);
+	
+	
+	std::vector <double> a = { V_X0, V_Y0, V_Z0, X0, Y0, Z0 };
+	status Setelite(&Apophis, a);
+	Setelite.addInfluence(&Sun);
+	Setelite.nonIntegr();
+
+
     std::cout << "Hello World!\n"; 
 }
-
+//поменять мю
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
 
